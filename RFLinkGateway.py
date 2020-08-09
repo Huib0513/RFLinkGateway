@@ -38,10 +38,10 @@ fh.setLevel(file_log_level)
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
-ch = logging.StreamHandler()
-ch.setFormatter(formatter)
-ch.setLevel(logging.DEBUG)
-logger.addHandler(ch)
+#ch = logging.StreamHandler()
+#ch.setFormatter(formatter)
+#ch.setLevel(logging.DEBUG)
+#logger.addHandler(ch)
 
 def main():
     # messages read from device

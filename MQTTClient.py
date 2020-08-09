@@ -3,7 +3,7 @@ import multiprocessing
 import time
 
 import paho.mqtt.client as mqtt
-import paho.mqtt.publish as publish
+#import paho.mqtt.publish as publish
 
 
 class MQTTClient(multiprocessing.Process):
@@ -87,7 +87,8 @@ class MQTTClient(multiprocessing.Process):
 
         try:
             self.logger.debug('Sending:%s to %s' % (task, topic))
-            publish.single(topic, payload=task['payload'], hostname=self.host, auth=self.auth, port=self.port)
+            self._mqttConn.publish(topic, payload=task['payload'])
+            #publish.single(topic, payload=task['payload'], hostname=self.host, auth=self.auth, port=self.port)
         except Exception as e:
             self.logger.error('Publish problem: %s' % (e))
             self.messageQ.put(task)

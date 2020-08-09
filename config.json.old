@@ -1,12 +1,14 @@
 {
-    "mqtt_host": "Mosquitto",
+    "mqtt_host": "mqtt.home",
     "mqtt_port": 1883,
+    "mqtt_user": "user",
+    "mqtt_password": "password",
     "mqtt_prefix": "rflink",
     "mqtt_message_timeout": 60,
     "mqtt_switch_incl_topic": "true",
     "mqtt_json": "true",
     "mqtt_include_message": "false",  
-    "rflink_tty_device": "/dev/rflink",
+    "rflink_tty_device": "/dev/ttyUSB0",
     "rflink_output_params_processing": {
         "ID": [],
         "SWITCH": [],
