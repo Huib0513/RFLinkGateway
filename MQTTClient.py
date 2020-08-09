@@ -22,6 +22,7 @@ class MQTTClient(multiprocessing.Process):
 
         self.mqtt_data_prefix = config['mqtt_prefix']
         self._mqttConn = mqtt.Client(client_id='RFLinkGateway')
+        self._mqttConn.will_set("clients/RFLinkGateway", "0", 0, True)
         if 'mqtt_user' in config and config['mqtt_user'] is not None:
             self.logger.info("Connection with credentials (user: %s).", config['mqtt_user'])
             self._mqttConn.username_pw_set(username=config['mqtt_user'], password=config['mqtt_password'])
@@ -40,6 +41,7 @@ class MQTTClient(multiprocessing.Process):
     def _on_connect(self, client, userdata, flags, rc):
         if rc == 0:
             self.logger.info("Connected to broker. Return code: %s" % mqtt.connack_string(rc))
+            self._mqttConn.publish("clients/RFLinkGateway", "1", 0, True)
             self._mqttConn.subscribe([ ("%s/+/+/W/+" % self.mqtt_data_prefix, 2), ("%s/_COMMAND/IN" % self.mqtt_data_prefix, 2) ])
         else:
             self.logger.warning("An error occured on connect. Return code: %s " % mqtt.connack_string(rc))
